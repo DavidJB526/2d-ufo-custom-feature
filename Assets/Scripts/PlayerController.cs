@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
     public float speed;
+    public float launchSpeed;
     public Text countText;
     public Text winText;
 
@@ -26,6 +27,12 @@ public class PlayerController : MonoBehaviour {
         float moveVertical = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
         rb2d.AddForce(movement * speed);
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(movement * launchSpeed, ForceMode2D.Impulse);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
